@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+<meta charset="utf-8">
+<title>关注孩子点滴成长</title>
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="framework/bootstrap-3.0.0/css/bootstrap.min.css">
+<script src="framework/jquery-1.9.1.js"></script>
+<script src="framework/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+<script src="framework/angular-1.3.0.14/angular.js"></script>
+<script src="js/socket.io-1.4.5.js"></script>
+<script src="js/JQuery.md5.js"></script>
+
+<script src="js/other.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/services.js"></script>
+<script src="js/directive.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+
+<div class="inner" ng-controller="innerctrl">
+<div class="inputdata" style="display:none">
+<form class="form-horizontal inputdataform" role="form" method="post" action="/changeperson" enctype="multipart/form-data" name="formchangeperson">
+<span class="btn btn-primary inputdatareturn" hideinputdatadir>
+<span>&lsaquo;</span>返回
+</span>
+<div class="inputdataleft">
+<div class="form-group ">
+    <label class="col-md-4 control-label">
+        姓名：
+    </label>
+    <div class="col-md-7">
+        <input type="text" class="form-control" placeholder="学生中文姓名" required id="personname">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label">
+        密码：
+    </label>
+    <div class="col-md-7">
+        <input type="password" class="form-control" placeholder="想要修改的密码" required id="personpassword">
+    </div>
+</div>                    
+<div class="form-group">
+    <input type="hidden" name="data" id="data">
+    <label class="col-md-4 control-label ">
+        上传头像：
+    </label>
+    <div class="col-md-7">
+        <input type="file" class="form-control" name="image">
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-4 col-md-8">
+        <button class="btn btn-primary" changepersondatadir>保存</button>
+        <button class="btn btn-primary" >重置表单</button>
+    </div>
+</div>  
+</div>         
+</form>
+</div>
+
+<div class="mainapp"  >
+<div class="top" >
+<ul class="nav nav-pills  nav-justified" navuldir>
+<li ng-repeat="key in show" ng-class="{'active':key.bool}" ng-click="changeclass(key)" >
+<a href="javascript:;">{{key.text}}</a>
+</li>               
+</ul>
+</div>
+<div class='content' >
+<!-- wechat -->
+<section  ng-show="show.chat.bool"  class="content-son" id="chat" ng-controller="chatctrl">
+<div class="chat-con" id="chat-left">
+    <div class="set">
+        <div class="set-headpicture"><img ng-src="{{picture}}"></div>
+        <div class="set-chating glyphicon glyphicon-comment color" index="1"colordir></div>
+        <div class="set-personlist glyphicon glyphicon-user" index="2" colordir></div>
+        <div class='set-persondata glyphicon glyphicon-asterisk' colordir showinputdatadir></div>
+    </div>
+    <div class='personlist'>
+        <div class='search'>
+            <span class="glyphicon glyphicon-search"></span>
+            <label><input ng-model="yourName" placeholder='搜索'/></label>
+        </div>
+        <ul ng-if="ischating">
+            <li class="personnel" ng-repeat="i in chatdata|orderBy:'chat[chat.length-1].time':true|filter:{name:yourName}:false" chatingclassdir>
+                <img ng-src="{{i.picture}}" >
+                <ul class="personnel-ul">
+                    <li><p>{{i.name}}</p><p>{{i.chat[i.chat.length-1].time|date:'HH:mm'}}</p></li>
+                    <li>{{i.chat[i.chat.length-1].text}}</li>
+                </ul>
+            </li>
+        </ul>
+        <ul ng-if="ispersonlist">                                
+            <li class="personnel oneli"  ng-repeat="i in chinesedata|filter:{name:yourName}:false" ng-class="{'sort':i.bool}"chatingclassdir>
+               <div ng-if="!i.bool">
+                <img ng-src="{{i.picture}}" >
+                <ul class="personnel-ul">
+                    <li><p>{{i.name}}</p></li>
+                </ul>
+               </div>
+               <div ng-if="i.bool">{{i.letter}}</div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="chat-con" id="chat-right">
+    <p class="chat-name">{{chatingdata.name}}</p>
+    <div class="chat-right-mid"id="chat-right-mid">
+        <ul class="chat-right-mid-ul">
+            <li class="message" ng-repeat="key in chatingdata.chat" ng-class="{'on':key.addclasson}"> 
+                <p class="message-time">{{key.time|date:'MM/dd/HH:mm'}}</p>
+                <div class="headpicture">
+                    <img ng-src="{{getpicture(key.whosepicture)}}">
+                </div>
+                <div class="message-con">
+                    <p>{{key.text}}</p>
+                </div>
+            </li>
+        </ul>
+        <div id="hid"></div>
+    </div>
+    <div class="chat-right-bot" contenteditable="true" postdatadir></div>
+    <button class="btn btn-success" id="chatpostdata" ng-click="postdata()">发送</button>
+</div>
+</section>
+<!-- 点滴成长部分 -->
+
+
+<section  ng-show="show.focus.bool"  class="content-son" id="focus" ng-controller="focusctrl">
+<div class="changebg" ng-show="turn">
+ <div class="opacity" >
+    <div class="focus-content">                        
+        <ul>
+            <li class="student" ng-repeat="i in childrendata"ng-style="{'background-image':'url({{i.photo}})'}" studentnamedir>
+                <p class="studentname" >{{i.name}}</p>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<div class="changebg show" ng-show="!turn">
+
+    <span class="return" ng-click="changeturn()"><span>&lsaquo;</span>返回</span>
+ <div class="opacityblack">
+    <div class="showcontent">
+        <p>{{targetchildren.name}}</p>
+        <div class="teacheraccess">                                
+            <div class="teacheraccesstext">
+                <p>考试：{{targetchildren.grow[index].exam}}</p>
+                <p>课后作业：{{targetchildren.grow[index].homework}}</p>
+                <p>课堂表现：{{targetchildren.grow[index].behavior}}</p>
+                <p>道德表现：{{targetchildren.grow[index].moral}}</p>
+                <p>与人相处：{{targetchildren.grow[index].communication}}</p>
+                <p>总评：{{targetchildren.grow[index].access}}</p>
+            </div>                                
+        </div>                            
+         <div class="changeweek">
+            <div id="myCarousel" class="carousel slide">   
+               <!-- 轮播（Carousel）项目 -->
+               <ul class="carousel-inner">
+                  <li class="item" ng-repeat=" key in targetchildren.grow" ng-class="{active:$index==0?true:false}">
+                     <p >{{key.week}}</p>
+                  </li>                                     
+               </ul>
+               <!-- 轮播（Carousel）导航 -->
+               <a class="carousel-control left" href="#myCarousel" 
+                  data-slide="prev" ng-click="getindexleft()">&lsaquo;</a>
+               <a class="carousel-control right" href="#myCarousel" 
+                  data-slide="next"ng-click="getindexright()">&rsaquo;</a>
+            </div>
+         </div>
+    </div>
+</div>
+</div>
+</section>                
+<section  ng-show="show.inform.bool"  class="content-son inform" ng-controller="informctrl">
+<div class="informleft">
+    <p class="informlisttitle">通知列表</p>
+    <ul>
+        <li class="informlist" ng-repeat="i in informdata|orderBy:'sorttime':true"  targetinformdir>
+            <span class="informlistnum">{{$index+1}}</span>
+            <span class="informlistcon">{{i.list}}</span>
+            <span class="informlisttime">{{i.month}}/{{i.date}}</span>
+        </li>                            
+    </ul>
+</div>
+<div class="informright">
+  <div class="informrightbg">
+    <p class="informcontitle">{{targetinform.title}}</p>
+    <p class="informconcall">{{targetinform.call}}：</p>
+    <div class="informcontent">
+    <p class="informconparagraph" ng-repeat="key in targetinform.content">
+        {{key}}</p>
+    </div>
+    <p class="informconsign">{{targetinform.school}}</p>
+    <p class="informconsign"><span id="informyear">{{targetinform.year}}</span>年<span id="informmonth">{{targetinform.month}}</span>月<span id="informdate">{{targetinform.date}}</span>日</p>
+</div>
+</div>
+</section>
+<section  ng-show="show.recommend.bool"  class="content-son recommend" ng-controller="recommendctrl">
+<ul>
+    <li class="recomlist" ng-repeat="key in recommenddata|orderBy:'sorttime':true" ng-style="{'background-image':'url({{key.photo}})'}">
+        <a ng-href="{{key.link}}" target="_blank">
+        <div class="recomlistbg">
+            <div class="recomlistcha">
+                <p id="chatitle">{{key.title}}</p>
+                <p id="chadetail">{{key.detail}}</p>
+                <p id="chacheckdetail">查看详情</p>
+            </div>
+        </div>
+        </a>
+    </li>                        
+</ul>
+</section>
+</div>
+</div>
+</div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>后台登录页</title>
+    <link rel="stylesheet" href="framework/bootstrap-3.0.0/css/bootstrap.min.css">
+    <script src="framework/jquery-1.9.1.js"></script>
+    <script src="js/JQuery.md5.js"></script>
+</head>
+<body >
+     <form method="post" action="/loginmanage" enctype="multipart/form-data" id="submitperson">
+                <div class="form-horizontal formlv" role="form" >
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            账户：
+                        </label>
+                        <div class="col-md-10">
+                           <input type="text" class="form-control " placeholder="账户" name="username" id="username" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                            密码：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="password" class="form-control " placeholder="密码" name="password" id="password" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-primary" id="submit" >提交</button>
+                            <button class="btn btn-primary" id="reset">重置表单</button>
+                        </div>
+                    </div>
+                </div>  
+             </form>
+ <style type="text/css">
+ html,body{height: 100%;width: 100%;}
+ body{background: url(image/kongzi.jpg);background-size: 100% 100%}
+ form{height: 100%;width: 100%;background: rgba(255,255,255,.5);}
+ .formlv{position: absolute;left: 0;top: 0;bottom: 0;right: 0;margin: auto auto;
+ 	height: 200px;width: 900px;}
+ </style>
+ <script type="text/javascript">
+ $(function(){
+
+ 	$("#submit").click(function(){
+        var name=$("#username").val();
+        var value=$("#password").val();
+        $("#password").val(hex_md5(value));
+ 	})
+ 	$("#reset").click(function(){
+ 		$("#username").val('');
+ 		$("#password").val('');
+ 	})
+ })
+ </script> 
+</body>
+
+</html>

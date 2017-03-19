@@ -1,0 +1,547 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+li {
+  list-style-type: none; }
+
+body {
+  min-width: 1100px;
+  height: 800px; }
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  outline: 1px solid #999; }
+
+.inner {
+  width: 1000px;
+  height: 620px;
+  position: absolute;
+  margin: auto auto;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid #999; }
+
+.mainapp {
+  background: #eee;
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid #999; }
+
+.top {
+  width: 100%; }
+  .top ul li:not(:last-child) {
+    border-right: 1px solid #aaa; }
+
+.content {
+  position: relative;
+  width: 100%;
+  height: 580px; }
+  .content .content-son {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; }
+
+.wrapper p {
+  margin: 0; }
+
+#chat {
+  position: relative;
+  clear: both; }
+
+.chat-con {
+  float: left;
+  height: 100%; }
+
+#chat-left {
+  width: 25%;
+  clear: both; }
+  #chat-left > div {
+    height: 100%; }
+
+.set {
+  width: 15%;
+  background: #2f2f2f;
+  float: left;
+  padding: 0 4px;
+  font-size: 26px;
+  position: relative; }
+
+.set-headpicture {
+  width: 100%;
+  margin-top: 10px;
+  height: 32px; }
+  .set-headpicture img {
+    width: 100%;
+    border-radius: 3px;
+    height: 32px; }
+
+.set-chating {
+  width: 100%;
+  margin-top: 40px; }
+
+.set-personlist {
+  width: 100%;
+  margin-top: 20px; }
+
+#chat-left .set-persondata {
+  width: 100%;
+  position: absolute;
+  top: 520px;
+  left: 3px; }
+#chat-left .set-chating::before, #chat-left .set-personlist::before, #chat-left .set-persondata::before {
+  color: #ddd; }
+#chat-left .set-chating.color::before, #chat-left .set-personlist.color::before, #chat-left .set-persondata.color::before {
+  color: #02b200; }
+
+.personlist {
+  overflow-y: scroll;
+  background: #393939;
+  color: #7f7f7f; }
+
+.search {
+  height: 40px;
+  padding: 10px 7px; }
+  .search span {
+    float: left; }
+  .search label {
+    display: block;
+    margin: 0;
+    border-radius: 5px;
+    height: 100%;
+    overflow: hidden;
+    margin-left: 20px;
+    background: #ddd; }
+  .search input {
+    width: 100%; }
+
+.personnel {
+  height: 50px;
+  padding: 3px 7px;
+  clear: both; }
+  .personnel.sort {
+    height: 20px; }
+  .personnel.bg {
+    background: #646464;
+    color: #e3e3e3; }
+  .personnel img {
+    float: left;
+    height: 44px;
+    width: 44px;
+    border-radius: 4px; }
+
+.personnel-ul {
+  overflow: hidden;
+  height: 100%; }
+
+.personnel.oneli li {
+  height: 100%;
+  padding: 12px; }
+.personnel li {
+  height: 50%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; }
+  .personnel li p:nth-of-type(1) {
+    width: 70%;
+    float: left;
+    height: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; }
+  .personnel li p:nth-of-type(2) {
+    float: right; }
+
+#chat-right {
+  width: 75%;
+  position: relative; }
+
+.chat-name {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  background: #ddd; }
+
+.chat-right-mid {
+  width: 100%;
+  background: #fff;
+  height: 75%;
+  overflow-y: scroll; }
+
+.chat-right-bot {
+  width: 100%;
+  height: 20.1%;
+  background: #eee;
+  overflow-y: scroll; }
+
+#chat-right button {
+  position: absolute;
+  right: 0;
+  bottom: 0; }
+
+.chat-right-mid-ul {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  text-align: left; }
+
+.message {
+  width: 100%;
+  clear: both;
+  overflow: hidden;
+  margin-bottom: 5px; }
+  .message div {
+    float: left;
+    height: 100%; }
+  .message.on div {
+    float: right; }
+  .message.on .message-con {
+    background: #b4eb7c; }
+
+.message-time {
+  text-align: center;
+  font-size: 10px; }
+
+.headpicture {
+  width: 8%; }
+  .headpicture img {
+    width: 47px;
+    height: 40px;
+    margin-left: 10%;
+    border-radius: 4px; }
+
+.message-con {
+  max-width: 84%;
+  background: #eee;
+  border-radius: 5px;
+  padding: 5px; }
+
+#focus {
+  clear: both;
+  position: relative; }
+
+.changebg {
+  background: url(../image/bg4.jpg) no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll; }
+  .changebg.show {
+    background: url(../image/tree.jpg) no-repeat;
+    background-size: 100% 100%;
+    overflow-y: hidden; }
+
+.opacity {
+  background: rgba(255, 255, 255, 0.7);
+  width: 100%;
+  height: 100%; }
+
+.focus-content {
+  width: 80%;
+  margin: 0 auto; }
+  .focus-content ul {
+    width: 100%;
+    clear: both;
+    overflow: hidden;
+    margin: 0; }
+
+.student {
+  width: 21.25%;
+  padding-bottom: 25%;
+  border-radius: 50%;
+  margin-right: 5%;
+  background: url(../image/hazi.jpg) no-repeat;
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;
+  float: left;
+  background-size: 100% 100%; }
+  .student:nth-of-type(4n) {
+    margin-right: 0; }
+
+#focus .studentname {
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto auto;
+  height: 30px; }
+
+.opacityblack {
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%; }
+
+.showcontent {
+  width: 100%;
+  height: 100%;
+  clear: both;
+  color: white; }
+  .showcontent > p {
+    height: 7%;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    text-shadow: 0px 0px 0 #bcb2bc, 1px -1px 0 #ada3ad, 2px -2px 0 #9d939d, 3px -3px 0 #8e848e; }
+
+.teacheraccess {
+  float: left;
+  margin: 30px 5% 0 8%;
+  width: 84%;
+  height: 68%;
+  font-size: 14px;
+  color: #111;
+  font-weight: bold;
+  position: relative; }
+
+.parentaccess {
+  margin: 30px 5% 0 5%; }
+
+.teacherhead {
+  float: left;
+  width: 10%;
+  margin-top: 20px;
+  margin-left: 10px; }
+
+.parentaccess .teacherhead {
+  float: right; }
+
+.teacherhead img {
+  border-radius: 3px; }
+
+.teacheraccesstext {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  padding: 5px; }
+  .teacheraccesstext p:not(:last-child) {
+    margin-bottom: 4px; }
+
+.changeweek {
+  height: 20%;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  overflow: hidden; }
+
+.return {
+  position: absolute;
+  left: 20px;
+  top: 5px;
+  padding: 5px;
+  font-size: 18px;
+  border-radius: 5px;
+  background-color: #b4eb7c;
+  color: #333; }
+  .return span {
+    font-size: 24px; }
+
+#myCarousel {
+  width: 70%;
+  margin: 0 auto;
+  height: 100%;
+  position: relative; }
+
+.carousel-inner {
+  height: 100%; }
+
+.item {
+  height: 100%; }
+  .item p {
+    width: 140px;
+    font-size: 30px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto auto;
+    text-align: center;
+    line-height: 60px;
+    font-weight: bold;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 60px;
+    border-radius: 40px; }
+
+.carousel-control {
+  font-size: 50px;
+  display: block;
+  vertical-align: middle;
+  line-height: 100px; }
+
+.login {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url(../image/bg1.jpg);
+  background-size: 100% 100%; }
+
+.formlv {
+  padding-top: 15%;
+  background: rgba(255, 255, 255, 0.5);
+  height: 100%; }
+
+.inputdata {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: url(../image/kongzi.jpg);
+  background-size: 100% 100%; }
+
+.inputdataleft {
+  width: 100%;
+  height: 100%;
+  padding-top: 13%;
+  float: left; }
+
+.inputdataform {
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); }
+
+.inputdatareturn {
+  position: absolute;
+  left: 10px;
+  top: 10px; }
+
+.inputdataright {
+  overflow: hidden; }
+
+.form-group textarea {
+  width: 100%;
+  height: 50px; }
+
+.inform {
+  background: #fff;
+  font-size: 18px; }
+
+.informleft {
+  width: 30%;
+  height: 100%;
+  overflow-y: scroll;
+  float: left;
+  background: -webkit-linear-gradient(to bottom, #fcf1f4 0%, #efbbbb 100%);
+  background: -ms-linear-gradient(to bottom, #fcf1f4 0%, #efbbbb 100%);
+  background: linear-gradient(to bottom, #fcf1f4 0%, #efbbbb 100%); }
+
+.informlist {
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer; }
+
+.informlisttitle {
+  text-align: center;
+  font-size: 24px; }
+
+.informlist span {
+  float: left; }
+
+.informlistnum {
+  width: 15px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ccc;
+  text-align: center;
+  line-height: 20px;
+  margin-top: 1px; }
+
+.informlistcon {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 78%; }
+
+.informright {
+  height: 100%;
+  background: url(../image/inform.jpg);
+  background-size: 100% 100%;
+  overflow: hidden; }
+
+.informrightbg {
+  background: rgba(255, 255, 255, 0.7);
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
+
+.informcontent {
+  overflow-y: scroll;
+  height: 75%; }
+
+.inform .informconparagraph {
+  text-indent: 2em;
+  margin-bottom: 5px; }
+.inform .informcontitle {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold; }
+.inform .informconsign {
+  text-align: right;
+  margin-right: 20px; }
+
+.recommend ul {
+  width: 100%;
+  height: 100%;
+  padding: 20px 40px;
+  background: #fff; }
+
+.recomlist {
+  width: 180px;
+  height: 250px;
+  border-radius: 20px;
+  background-size: 100% 100%;
+  float: left;
+  margin: 0 66px 40px 0; }
+  .recomlist:nth-of-type(4) {
+    margin-right: 0; }
+
+.recomlistbg {
+  background: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  height: 100%; }
+
+.recomlistcha {
+  font-size: 20px;
+  font-weight: bold;
+  overflow: hidden;
+  height: 100%; }
+
+.recomlist a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: black; }
+
+#chatitle {
+  margin-top: 10px;
+  text-align: center; }
+
+#chadetail {
+  font-size: 16px;
+  font-weight: normal;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  height: 65%;
+  overflow: hidden; }
+
+#chacheckdetail {
+  text-align: right;
+  margin-right: 5px;
+  color: blue;
+  font-size: 12px; }
+
+/*# sourceMappingURL=app.css.map */

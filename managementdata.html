@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="css/managementdata.css">
+    <link rel="stylesheet" href="framework/bootstrap-3.0.0/css/bootstrap.min.css">
+    <script src="framework/jquery-1.9.1.js"></script>
+    <script src="framework/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script src="framework/angular-1.3.0.14/angular.js"></script>
+    <script src="js/socket.io-1.4.5.js"></script>
+    <script src="js/JQuery.md5.js"></script>
+    
+    <script src="management/ctrl.js"></script>
+    <script src="management/person.js"></script>
+    <script src="management/focus.js"></script>
+    <script src="management/inform.js"></script>
+    <script src="management/password.js"></script>
+    <script src="management/recommend.js"></script>
+</head>
+
+<body ng-controller="body">
+    <div class="wrapper" >
+        <div class="hid" ng-show="showboolean">
+            <!-- 弹窗部分 -->
+            <form class="form-horizontal formlv" ng-show='!showdelete'role="form" >
+                    <div class="form-group">
+                        <label class="col-md-2 control-label col-md-offset-2">
+                            姓名：
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="学生中文姓名" value='{{clickpersondata.name}}' id="modifyname">
+                        </div>
+                    </div>                                      
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8">
+                            <button class="btn btn-primary" modifydir>修改并保存</button>
+                            <button class="btn btn-primary" judgedeletedir>删除此人</button>
+                            <button class="btn btn-primary" returndir>返回</button>
+                        </div>
+                    </div>                    
+            </form>
+            <div class="formlv" ng-show='showdelete'>
+                <p class="deleteconfirm">你确定要删除{{clickpersondata.name}}吗？</p>
+                 <div class="form-group">
+                        <div class="col-md-offset-6 col-md-6">
+                            <button class="btn btn-primary" deletedir id="deleteperson">是</button>
+                            <button class="btn btn-primary" nodeletedir>否</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+
+
+        <div class="inner">
+            <div class='hadperson'>
+                <p>已经在系统中的用户：</p>               
+                <ul class='personlist'>
+                    <li class="personnel"  personneldir ng-repeat="key in persondata">
+                        <img ng-src="{{key.picture}}">
+                        <span>{{key.name}}</span>             
+                    </li>                          
+                </ul>                
+            </div>
+            <form class="form-horizontal " role="form" >
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            姓名：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" placeholder="学生中文姓名" id="addname" value="dd">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                           中文全拼姓名：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" placeholder="只能字母" id="addenglishname" value="dd">
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-primary" id="addperson"adddir>增加</button>
+                            <button class="btn btn-primary" resetadddir>重置表单</button>
+                        </div>
+                    </div>                    
+            </form>
+            
+
+             <!-- 点滴成长 --> 
+            <div class="focus">
+                <p>管理点滴成长：</p>
+             <form method="post" action="/up" enctype="multipart/form-data" name="formfocus">
+                <div class="form-horizontal " role="form" >
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            请选择数据：
+                        </label>
+                        <div class="col-md-5">
+                           <select class="form-control" id="focusselect" targetfocusdir>
+                             <option ng-repeat="key in focusdata" value="{{$index}}" >{{key.name}}</option>
+                           </select> 
+                        </div>
+                        <div class="col-md-5">
+                           <select class="form-control" id="focusselectweek" targetweekdir>
+                             <option ng-repeat="key in targetfocus.grow" value="{{$index}}" >{{key.week}}</option>
+                             <option value="add">增加</option>
+                           </select> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                            周数：
+                        </label>
+                        <div class="col-md-10">
+                             <textarea type="text" class="form-control focuscheck" placeholder=" 周数"  required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                            考试：
+                        </label>
+                        <div class="col-md-10">
+                             <textarea type="text" class="form-control focuscheck" placeholder=" 考试"  required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            课后作业：
+                        </label>
+                        <div class="col-md-10">
+                             <textarea type="text" class="form-control focuscheck" placeholder="课后作业"  required></textarea>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            课堂表现：
+                        </label>
+                        <div class="col-md-10">
+                             <textarea type="text" class="form-control focuscheck" placeholder="课堂表现"  required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            道德表现：
+                        </label>
+                        <div class="col-md-10">
+                            <textarea type="text" class="form-control focuscheck" placeholder="道德表现"  required></textarea>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            与人相处：
+                        </label>
+                        <div class="col-md-10">
+                            <textarea type="text" class="form-control focuscheck" placeholder="与人相处"  required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            总评：
+                        </label>
+                        <div class="col-md-10">
+                            <textarea type="text" class="form-control focuscheck" placeholder="总评"  required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-md-2 control-label">
+                               人物背景图片（jpg或png）：
+                            </label>
+                            <div class="col-md-8">
+                                <input type="file" class="form-control" name="image" >
+                            </div>   
+                    </div>                      
+                      <input type="hidden" class="form-control" name="data" id="data">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-primary" id="addfocus" del="false"focusadddir>增加</button>
+                            <button class="btn btn-primary" id="deletefocus" del="true" focusdeletedir>删除</button>
+                            <button class="btn btn-primary" focusresetdir>重置表单</button>
+                        </div>
+                    </div>
+
+                </div>  
+             </form>                  
+            </div>
+            <!-- 通知 -->
+            <div class="inform">               
+               <p>管理通知消息：</p>
+               <form class="form-horizontal " role="form" >
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            请选择数据：
+                        </label>
+                        <div class="col-md-10">
+                           <select class="form-control" id="informselect" targetinformdir>
+                             <option ng-repeat="key in informdata" value="{{$index}}" class="targetinformdi">{{key.list}}</option>
+                             <option value="add">增加</option>
+                           </select> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            通知简介：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control informcheck" placeholder="通知简介" value="{{targetinform.list}}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                           文章标题：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control informcheck" placeholder="文章标题" value="{{targetinform.title}}"required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                           署名：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control informcheck" placeholder="署名" value="{{targetinform.call}}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                           正文：
+                        </label>
+                        <div class="col-md-10">
+                            <textarea id="informtextarea" class="informcheck" informtextareadir required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                           学校：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control informcheck" placeholder="学校" value="{{targetinform.school}}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                           年：
+                        </label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control informcheck" placeholder="年份" value="{{targetinform.year}}" required>
+                        </div>
+                        <label class="col-md-1 control-label">
+                           月：
+                        </label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control informcheck" placeholder="月份" value="{{targetinform.month}}" required>
+                        </div>
+                        <label class="col-md-1 control-label">
+                           日：
+                        </label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control informcheck" placeholder="日期" value="{{targetinform.date}}" required>
+                        </div>
+                    </div>                      
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            <button class="btn btn-primary" id="addinform" informadddir>增加</button>
+                            <button class="btn btn-primary" id="deleteinform" informdeletedir>删除</button>
+                            <button class="btn btn-primary" informresetdir>重置表单</button>
+                        </div>
+                    </div>                    
+                </form>
+            </div>
+            
+           
+            <!-- 教师推荐 -->  
+            <div class="recommend">
+                <p>管理教师推荐：</p>
+
+             <form method="post" action="/upload" enctype="multipart/form-data" name="formrecommend">
+                <div class="form-horizontal " role="form" >
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            请选择数据：
+                        </label>
+                        <div class="col-md-10">
+                           <select class="form-control" id="recommendselect" targetrecommenddir>
+                             <option ng-repeat="key in recommenddata" value="{{$index}}" >{{key.title}}</option>
+                             <option value="add">增加</option>
+                           </select> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                            标题：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control recommendcheck" placeholder="标题" name="title" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                            详细描述：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control recommendcheck" placeholder="详细描述" name='detail' required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            需要跳转的链接：
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control recommendcheck" placeholder="需要跳转的链接" name="link" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-md-2 control-label">
+                               上传图片：
+                            </label>
+                            <div class="col-md-8">
+                                <input type="file" class="form-control" name="image" required>
+                            </div>   
+                    </div>
+                      <input type="hidden" class="form-control" name="type" id="type">
+                      <input type="hidden" class="form-control" name="sorttime" id="sorttime">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-primary" id="addrecommend" recommendadddir>增加</button>
+                            <button class="btn btn-primary" id="deleterecommend" recommenddeletedir>删除</button>
+                            <button class="btn btn-primary" recommendresetdir>重置表单</button>
+                        </div>
+                    </div>
+
+                </div>  
+             </form>                  
+            </div>
+
+            <!-- 修改后台密码 -->  
+            <div class="password">
+                <p>修改后台密码：</p>
+                <div class="form-horizontal " role="form" >
+                    <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            用户名：
+                        </label>
+                        <div class="col-md-10">
+                           <input type="text" class="form-control passwordcheck"id="account" placeholder="用户名"  required>
+                        </div>
+                    </div>
+                   <div class="form-group">
+                        <label class="col-md-2 control-label ">
+                            密码：
+                        </label>
+                        <div class="col-md-10">
+                           <input type="password" id="password"class="form-control passwordcheck" placeholder="密码"  required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <span class="btn btn-primary" id="addrecommend" passwordadddir>修改</span>
+                            <button class="btn btn-primary" passwordresetdir>重置表单</button>
+                        </div>
+                    </div>
+
+                </div>  
+                     
+            </div>
+
+        </div>
+    </div>   
+</body>
+
+</html>

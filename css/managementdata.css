@@ -1,0 +1,32 @@
+*{margin: 0;padding: 0;}
+li{list-style-type: none;}
+.wrapper{position: relative;width: 100%;min-width: 1000px;height: 100%;}
+.inner{width: 1000px;margin: 0 auto;border: 1px solid #999;}
+.hadperson{margin: 0px 0 20px 0;width: 100%;padding-bottom: 40px; }
+.hadperson>p{font-size: 24px;margin: 0;}
+.personlist{width: 100%;padding:0 10px 0 10px;clear: both;overflow: hidden;}
+.personnel{height: 50px;width:12%;float: left;background: #ddd;font-weight: bold;margin-left: 19px;border-radius: 4px;margin-top: 5px;}
+.personnel img{height: 44px;width: 44px;border-radius: 4px;margin-left: 4px;}
+.personnel span{line-height: 50px;}
+
+
+.hid{height: 100%;width: 100%;position: fixed;background: rgba(0,0,0,.9);z-index: 10;}
+.formlv{margin-top: 150px;color: white;}
+.deleteconfirm{text-align: center;}
+.inform>p{font-size: 24px;margin: 0;}
+.inform{border-top:1px solid #999;}
+#informtextarea{height: 300px;width: 100%;}
+#deleteinform{display: none;}
+
+.recommend{border-top:1px solid #999;}
+.recommend>p{font-size: 24px;margin: 0;}
+#deleterecommend{display: none;}
+.recommendsubmit{margin-top: 8px;}
+
+.focus{border-top:1px solid #999;}
+.focus>p{font-size: 24px;margin: 0;}
+#deletefocus{display: none;}
+.focussubmit{margin-top: 8px;}
+
+.password{border-top:1px solid #999;}
+.password>p{font-size: 24px;margin: 0;}
